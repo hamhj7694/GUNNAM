@@ -27,7 +27,7 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/gunnam">
       <Routes>
         <Route path="/" element={<HomePage {...pageProps} />} />
         <Route path="/create" element={<CreateCardPage {...pageProps} />} />
