@@ -1,15 +1,16 @@
 export default function ToggleSwitch({ checked, onChange, label }) {
   return (
-    <label className="toggle-row">
+    <div className="toggle-row">
       <span>{label}</span>
       <button
+        aria-label={`${label}: ${checked ? "켜짐" : "꺼짐"}`}
+        aria-pressed={checked}
         className={`toggle-switch ${checked ? "is-on" : ""}`}
         type="button"
-        aria-pressed={checked}
         onClick={() => onChange(!checked)}
       >
-        <span />
+        <span aria-hidden="true" />
       </button>
-    </label>
+    </div>
   );
 }

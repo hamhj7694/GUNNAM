@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 
-export default function ReplyInput({ value, onSubmit, preview = false }) {
+export default function ReplyInput({
+  value = "",
+  onSubmit,
+  preview = false,
+  submitted = false
+}) {
+  const inputId = useId();
   const [text, setText] = useState(value);
   const [error, setError] = useState("");
 
@@ -10,32 +16,41 @@ export default function ReplyInput({ value, onSubmit, preview = false }) {
       return;
     }
 
-    if (!text.trim()) {
+    const normalizedText = text.trim();
+    if (!normalizedText) {
       setError("메시지를 입력해주세요.");
       return;
     }
 
     setError("");
-    onSubmit(text.trim());
+    onSubmit(normalizedText);
   }
 
   return (
-    <form className={`reply-input ${preview ? "is-preview" : ""}`} onSubmit={submitReply}>
+    <form
+      className={`reply-input ${preview ? "is-preview" : ""}`}
+      onSubmit={submitReply}
+    >
       {preview ? null : (
-        <label htmlFor="replyText">하고 싶은 말을 남겨주세요</label>
+        <label htmlFor={inputId}>하고 싶은 말을 남겨주세요</label>
       )}
       <textarea
-        id="replyText"
+        aria-label={preview ? "답장 입력 미리보기" : undefined}
+        id={inputId}
+        placeholder={preview ? "여기에 답장을 받을 수 있어요" : "짧게 적어주세요"}
+        readOnly={preview}
         rows="3"
         value={text}
-        readOnly={preview}
         onChange={(event) => setText(event.target.value)}
-        placeholder={preview ? "여기에 답변을 받을 수 있어요!" : "짧게 적어주세요."}
       />
-      {error ? <p className="error-text">{error}</p> : null}
+      {error ? (
+        <p className="error-text" role="alert">
+          {error}
+        </p>
+      ) : null}
       {preview ? null : (
         <button className="button button-accept" type="submit">
-          남기기
+          {submitted ? "수정해서 다시 남기기" : "남기기"}
         </button>
       )}
     </form>
