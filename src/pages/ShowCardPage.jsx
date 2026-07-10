@@ -8,7 +8,7 @@ export default function ShowCardPage({ cardData, display }) {
 
   return (
     <CardFrame className="show-page">
-      <p>당신에게 건넵니다. 대답해 주세요.</p>
+      <h5 className="show-msg">당신에게 건넵니다</h5>
       <button
         aria-label="카드 작성 화면으로 돌아가기"
         className="screen-back-button"

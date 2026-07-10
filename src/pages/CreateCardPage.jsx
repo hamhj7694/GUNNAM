@@ -80,6 +80,12 @@ export default function CreateCardPage({ cardData, setCardData }) {
         ))}
       </nav>
 
+      {error ? (
+        <p className="error-text" role="alert">
+          {error}
+        </p>
+      ) : null}
+
       {step.id === "main" ? (
         <section className="creator-step" aria-labelledby="main-step-title">
           <div className="screen-preview">
@@ -93,7 +99,7 @@ export default function CreateCardPage({ cardData, setCardData }) {
               ) : null}
               <textarea
                 aria-label="메인 카드 문구"
-                placeholder={"상대에게 보여줄\n문구를 입력하세요"}
+                placeholder={"(필수 입력)\n상대에게 보여줄 문구를\n직접 입력해 보세요"}
                 rows="4"
                 value={cardData.mainText}
                 onChange={(event) => updateField("mainText", event.target.value)}
@@ -103,7 +109,7 @@ export default function CreateCardPage({ cardData, setCardData }) {
               <input
                 aria-label="수락 버튼 문구"
                 className="button-input accept-input"
-                placeholder="좋아요 (직접 입력해보세요)"
+                placeholder="좋아요 (직접 입력해 보세요)"
                 value={cardData.acceptButtonText}
                 onChange={(event) =>
                   updateField("acceptButtonText", event.target.value)
@@ -112,7 +118,7 @@ export default function CreateCardPage({ cardData, setCardData }) {
               <input
                 aria-label="거절 버튼 문구"
                 className="button-input reject-input"
-                placeholder="싫어요 (직접 입력해보세요)"
+                placeholder="싫어요 (직접 입력해 보세요)"
                 value={cardData.rejectButtonText}
                 onChange={(event) =>
                   updateField("rejectButtonText", event.target.value)
@@ -120,12 +126,6 @@ export default function CreateCardPage({ cardData, setCardData }) {
               />
             </div>
           </div>
-
-          {error ? (
-            <p className="error-text" role="alert">
-              {error}
-            </p>
-          ) : null}
 
           <div className="edit-controls">
             <ImageUploader
@@ -149,7 +149,7 @@ export default function CreateCardPage({ cardData, setCardData }) {
               <textarea
                 aria-label="수락 결과 문구"
                 className="result-message-input"
-                placeholder="좋아요 (직접 입력해보세요)"
+                placeholder={"수락에 대한 문구를\n직접 입력해 보세요\n(미입력 시 '선택된 답변')"}
                 rows="3"
                 value={cardData.acceptResultText}
                 onChange={(event) =>
@@ -157,7 +157,8 @@ export default function CreateCardPage({ cardData, setCardData }) {
                 }
               />
               {cardData.acceptReplyEnabled ? (
-                <ReplyInput preview value="" onSubmit={() => {}} />
+                // <ReplyInput preview value="" onSubmit={() => {}} />
+                <h4>"답장 카드를 받을 수 있어요"</h4>
               ) : null}
             </div>
           </div>
@@ -189,7 +190,7 @@ export default function CreateCardPage({ cardData, setCardData }) {
               <textarea
                 aria-label="거절 결과 문구"
                 className="result-message-input"
-                placeholder="싫어요 (직접 입력해보세요)"
+                placeholder={"거절에 대한 문구를\n직접 입력해 보세요\n(미입력 시 '선택된 답변')"}
                 rows="3"
                 value={cardData.rejectResultText}
                 onChange={(event) =>
@@ -197,14 +198,15 @@ export default function CreateCardPage({ cardData, setCardData }) {
                 }
               />
               {cardData.rejectReplyEnabled ? (
-                <ReplyInput preview value="" onSubmit={() => {}} />
+                // <ReplyInput preview value="" onSubmit={() => {}} />
+                <h4>"답장 카드를 받을 수 있어요"</h4>
               ) : null}
             </div>
           </div>
 
           <div className="edit-controls">
             <ImageUploader
-              label="[선택] 보여주고 싶은 이미지/QR 추가"
+              label="[선택] 보여주고 싶은 이미지 추가"
               value={cardData.rejectImage}
               onChange={(value) => updateField("rejectImage", value)}
             />

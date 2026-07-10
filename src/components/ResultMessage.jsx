@@ -1,3 +1,6 @@
 export default function ResultMessage({ children }) {
-  return <p className="result-message">{children}</p>;
+  return <>
+    <span className="card_span">선택 답변</span>
+    <p className="result-message">{children}</p>
+  </>
 }
