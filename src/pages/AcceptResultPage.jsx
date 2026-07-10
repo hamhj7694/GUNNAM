@@ -17,24 +17,28 @@ export default function AcceptResultPage({ cardData, display, setCardData }) {
 
   return (
     <CardFrame className="result-page accept-result accept-context">
-      <div className="result-preview accept-preview">
-        <ImageBlock image={cardData.acceptImage} alt="수락 후 이미지" />
+      <button
+        aria-label="카드로 돌아가기"
+        className="screen-back-button"
+        type="button"
+        onClick={() => navigate("/show")}
+      >
+        <span aria-hidden="true">←</span>
+      </button>
+      <div className="result-preview">
+        <ImageBlock image={cardData.acceptImage} alt="수락 결과" />
         <ResultMessage>{display.finalAcceptMessage}</ResultMessage>
       </div>
       {cardData.acceptReplySubmitted ? (
         <ReplyCard text={cardData.acceptReplyText} />
       ) : null}
       {cardData.acceptReplyEnabled ? (
-        <ReplyInput value={cardData.acceptReplyText} onSubmit={submitReply} />
+        <ReplyInput
+          submitted={cardData.acceptReplySubmitted}
+          value={cardData.acceptReplyText}
+          onSubmit={submitReply}
+        />
       ) : null}
-      <button
-        className="screen-back-button"
-        type="button"
-        aria-label="카드로 돌아가기"
-        onClick={() => navigate("/show")}
-      >
-        ←
-      </button>
     </CardFrame>
   );
 }

@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useId, useRef } from "react";
 
 export default function ImageUploader({ label, value, onChange }) {
+  const inputId = useId();
   const inputRef = useRef(null);
 
-  function selectFile(event) {
+  function selectImage(event) {
     const file = event.target.files?.[0];
     if (!file) {
       return;
@@ -22,17 +23,18 @@ export default function ImageUploader({ label, value, onChange }) {
   }
 
   return (
-      <div className="uploader">
-      <div className="uploader-head">
-        <span>{label}</span>
-      </div>
-      {value ? <p className="uploader-status">이미지가 선택됐어요.</p> : null}
+    <div className="uploader">
+      <label className="uploader-label" htmlFor={inputId}>
+        {label}
+      </label>
+      {value ? <p className="uploader-status">이미지가 선택되었어요.</p> : null}
       <input
         ref={inputRef}
         accept="image/*"
         className="visually-hidden"
+        id={inputId}
         type="file"
-        onChange={selectFile}
+        onChange={selectImage}
       />
       <div className="uploader-actions">
         <button
@@ -43,7 +45,11 @@ export default function ImageUploader({ label, value, onChange }) {
           {value ? "다시 선택" : "이미지 선택"}
         </button>
         {value ? (
-          <button className="secondary-button danger" type="button" onClick={removeImage}>
+          <button
+            className="secondary-button danger"
+            type="button"
+            onClick={removeImage}
+          >
             삭제
           </button>
         ) : null}

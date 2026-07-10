@@ -2,11 +2,11 @@ import { useMemo, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { initialCardData } from "./data/cardData.js";
 import { getCardDisplay } from "./utils/cardDisplay.js";
-import HomePage from "./pages/HomePage.jsx";
-import CreateCardPage from "./pages/CreateCardPage.jsx";
-import ShowCardPage from "./pages/ShowCardPage.jsx";
 import AcceptResultPage from "./pages/AcceptResultPage.jsx";
+import CreateCardPage from "./pages/CreateCardPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 import RejectResultPage from "./pages/RejectResultPage.jsx";
+import ShowCardPage from "./pages/ShowCardPage.jsx";
 
 export default function App() {
   const [cardData, setCardData] = useState(initialCardData);
@@ -19,7 +19,7 @@ export default function App() {
     }));
   }
 
-  const appProps = {
+  const pageProps = {
     cardData,
     display,
     setCardData: updateCardData,
@@ -29,11 +29,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage {...appProps} />} />
-        <Route path="/create" element={<CreateCardPage {...appProps} />} />
-        <Route path="/show" element={<ShowCardPage {...appProps} />} />
-        <Route path="/result/accept" element={<AcceptResultPage {...appProps} />} />
-        <Route path="/result/reject" element={<RejectResultPage {...appProps} />} />
+        <Route path="/" element={<HomePage {...pageProps} />} />
+        <Route path="/create" element={<CreateCardPage {...pageProps} />} />
+        <Route path="/show" element={<ShowCardPage {...pageProps} />} />
+        <Route
+          path="/result/accept"
+          element={<AcceptResultPage {...pageProps} />}
+        />
+        <Route
+          path="/result/reject"
+          element={<RejectResultPage {...pageProps} />}
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

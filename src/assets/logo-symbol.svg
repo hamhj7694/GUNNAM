@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="건넴 로고 심볼">
+  <path d="M22 52L64 19l42 33v53a14 14 0 0 1-14 14H36a14 14 0 0 1-14-14z" fill="#78a894"/>
+  <rect x="38" y="34" width="52" height="62" rx="12" fill="#f0dfb9"/>
+  <path d="M22 59l38 32a6 6 0 0 0 8 0l38-32v46a14 14 0 0 1-14 14H36a14 14 0 0 1-14-14z" fill="#78a894"/>
+  <path d="M54 49c0-7 5-12 12-12s12 5 12 12c0 9-12 10-12 18" fill="none" stroke="#79a8d0" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="66" cy="76" r="4" fill="#d98270"/>
+</svg>
