@@ -36,9 +36,11 @@
 | 전체 라우팅 | `src/App.jsx` | 모든 `src/pages/*.jsx` |
 | 전역 카드 상태와 초기화 | `src/App.jsx` | `src/data/cardData.js` |
 | 카드 로컬 저장·복구 | `src/utils/cardStorage.js` | `src/App.jsx`, `src/data/cardData.js` |
+| 받은 답변 히스토리 저장 | `src/utils/replyHistoryStorage.js` | `src/App.jsx`, 결과 페이지 |
 | 초기 필드 추가·삭제 | `src/data/cardData.js` | `src/App.jsx`, 사용 페이지 |
 | 버튼·결과 fallback | `src/utils/cardDisplay.js` | `src/data/cardData.js` |
 | 홈 소개 및 새 카드 시작 | `src/pages/HomePage.jsx` | `src/App.jsx` |
+| 받은 답변 목록·필터·삭제 | `src/pages/HistoryPage.jsx` | `replyHistoryStorage.js`, `src/styles.css` |
 | 3단계 작성 흐름 | `src/pages/CreateCardPage.jsx` | `src/styles.css` |
 | 메인 문구·이미지 편집 | `src/pages/CreateCardPage.jsx` | `MainQuestionCard.jsx`, `ImageUploader.jsx` |
 | 수락·거절 버튼 | `src/components/ActionButtons.jsx` | `ShowCardPage.jsx`, `cardDisplay.js` |
@@ -58,6 +60,7 @@
 ```text
 /                 HomePage
 /create           CreateCardPage
+/history          HistoryPage
 /show             ShowCardPage
 /result/accept    AcceptResultPage
 /result/reject    RejectResultPage
@@ -77,11 +80,13 @@
 | `acceptReplyEnabled` | 수락 답장 노출 여부, 기본 true | CreateCardPage → AcceptResultPage |
 | `acceptReplyText` | 제출된 수락 답장 | ReplyInput → ReplyCard |
 | `acceptReplySubmitted` | 수락 답장 카드 노출 여부 | AcceptResultPage → ReplyCard |
+| `acceptReplyHistoryId` | 현재 수락 답변의 히스토리 연결 ID | AcceptResultPage → replyHistory |
 | `rejectImage` | 거절 결과 이미지 | CreateCardPage → RejectResultPage |
 | `rejectResultText` | 거절 결과 원본 문구 | CreateCardPage → cardDisplay → RejectResultPage |
 | `rejectReplyEnabled` | 거절 답장 노출 여부, 기본 true | CreateCardPage → RejectResultPage |
 | `rejectReplyText` | 제출된 거절 답장 | ReplyInput → ReplyCard |
 | `rejectReplySubmitted` | 거절 답장 카드 노출 여부 | RejectResultPage → ReplyCard |
+| `rejectReplyHistoryId` | 현재 거절 답변의 히스토리 연결 ID | RejectResultPage → replyHistory |
 
 ## 핵심 불변 규칙
 
@@ -89,11 +94,14 @@
 - 결과 원본 문구가 비면 해당 버튼의 최종 표시 문구를 사용한다.
 - `mainText` 필수 검증은 최종 보여주기에서만 수행한다.
 - 답장 토글과 답장 데이터는 수락·거절별로 독립적이다.
-- 답변 초기화는 현재 결과의 `ReplyText`와 `ReplySubmitted`만 초기화한다.
+- 답변 초기화는 현재 결과의 `ReplyText`, `ReplySubmitted`, `ReplyHistoryId`만 초기화한다.
+- 히스토리는 유효한 답변 제출 때만 생성하고 질문은 보조 맥락으로만 표시한다.
+- 새 카드 초기화는 `gunnam.replyHistory.v1`의 받은 답변 기록을 삭제하지 않는다.
 - 이미지가 없으면 이미지 요소와 빈 placeholder를 렌더링하지 않는다.
 - 이미지는 `object-fit: contain`을 유지한다.
 - ShowCardPage에는 응답에 필요한 카드와 버튼 외 불필요한 UI를 넣지 않는다.
 - 원본 `cardData`는 `gunnam.cardData.v1` 키로 localStorage에 저장하며 서버에는 영속화하지 않는다.
+- 홈의 새 카드는 로컬 데이터를 초기화하고, 기존 카드는 저장 데이터를 유지한다.
 - 모든 사용자 노출 한글 파일은 UTF-8로 저장한다.
 
 ## 현재 상태

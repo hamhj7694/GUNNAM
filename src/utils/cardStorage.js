@@ -47,3 +47,11 @@ export function saveCardData(cardData) {
     return false;
   }
 }
+
+export function clearCardData() {
+  try {
+    getStorage()?.removeItem(CARD_STORAGE_KEY);
+  } catch (error) {
+    console.warn("저장된 카드 데이터를 삭제하지 못했습니다.", error);
+  }
+}

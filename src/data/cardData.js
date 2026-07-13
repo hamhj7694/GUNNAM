@@ -8,9 +8,11 @@ export const initialCardData = {
   acceptReplyEnabled: true,
   acceptReplyText: "",
   acceptReplySubmitted: false,
+  acceptReplyHistoryId: null,
   rejectImage: null,
   rejectResultText: "",
   rejectReplyEnabled: true,
   rejectReplyText: "",
-  rejectReplySubmitted: false
+  rejectReplySubmitted: false,
+  rejectReplyHistoryId: null
 };

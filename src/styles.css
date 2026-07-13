@@ -160,6 +160,12 @@ h1, h2, p {
   background: #efede6;
 }
 
+.home-history-button {
+  color: var(--color-primary-strong);
+  background: var(--color-primary-soft);
+  border: 1px solid #4f8a7838;
+}
+
 .question-card, .reply-card, .result-preview {
   text-align: center;
   background: #fff;
@@ -637,6 +643,181 @@ h1, h2, p {
   color: var(--color-reject-strong);
 }
 
+.history-page {
+  position: relative;
+  padding-top: 82px;
+}
+
+.history-header {
+  display: grid;
+  gap: 8px;
+}
+
+.history-header .eyebrow {
+  margin: 0 0 6px;
+}
+
+.history-header h1 {
+  color: var(--color-primary-strong);
+  font-size: 2rem;
+}
+
+.history-count {
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: .86rem;
+  font-weight: 700;
+}
+
+.history-filters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.history-filters button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--color-muted);
+  background: #efede6;
+  font-size: .88rem;
+  font-weight: 800;
+}
+
+.history-filters button.is-active {
+  color: #fff;
+  background: var(--color-primary-strong);
+}
+
+.history-list {
+  display: grid;
+  gap: 14px;
+}
+
+.history-card {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #1f252314;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 24px #36453f12;
+}
+
+.history-card-accept {
+  border-color: #5f8fbe38;
+}
+
+.history-card-reject {
+  border-color: #c96f6038;
+}
+
+.history-card-meta {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-muted);
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+.history-card-meta > span {
+  padding: 5px 8px;
+  border-radius: 999px;
+}
+
+.history-card-accept .history-card-meta > span {
+  color: var(--color-accept-strong);
+  background: var(--color-accept-soft);
+}
+
+.history-card-reject .history-card-meta > span {
+  color: var(--color-reject-strong);
+  background: var(--color-reject-soft);
+}
+
+.history-delete-button {
+  min-height: 32px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 8px;
+  color: #8b3f36;
+  background: #f6e4df;
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.history-reply {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  color: var(--color-ink);
+  font-size: clamp(1.18rem, 5vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.history-context {
+  padding-top: 12px;
+  border-top: 1px solid #1f252314;
+  color: var(--color-muted);
+}
+
+.history-context summary {
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.history-context dl {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 0;
+}
+
+.history-context dl > div {
+  display: grid;
+  gap: 4px;
+}
+
+.history-context dt {
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.history-context dd {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.history-empty {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  min-height: 280px;
+  padding: 24px;
+  border: 1px dashed #4f8a7845;
+  border-radius: 16px;
+  color: var(--color-muted);
+  text-align: center;
+  background: var(--color-primary-soft);
+}
+
+.history-empty strong {
+  color: var(--color-primary-strong);
+  font-size: 1.05rem;
+}
+
+.history-empty p {
+  font-size: .86rem;
+  line-height: 1.5;
+}
+
 @media (width <= 420px) {
   .app-shell {
     align-items: stretch;
@@ -660,6 +841,19 @@ h1, h2, p {
   .reply-reset-button {
     top: 16px;
     right: 20px;
+  }
+
+  .history-page {
+    padding-top: 78px;
+  }
+
+  .history-card-meta {
+    grid-template-columns: auto 1fr;
+  }
+
+  .history-delete-button {
+    grid-column: 1 / -1;
+    justify-self: end;
   }
 
   .step-tabs {
