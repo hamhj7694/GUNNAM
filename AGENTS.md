@@ -35,6 +35,7 @@
 | npm 스크립트와 의존성 | `package.json` | `package-lock.json` |
 | 전체 라우팅 | `src/App.jsx` | 모든 `src/pages/*.jsx` |
 | 전역 카드 상태와 초기화 | `src/App.jsx` | `src/data/cardData.js` |
+| 카드 로컬 저장·복구 | `src/utils/cardStorage.js` | `src/App.jsx`, `src/data/cardData.js` |
 | 초기 필드 추가·삭제 | `src/data/cardData.js` | `src/App.jsx`, 사용 페이지 |
 | 버튼·결과 fallback | `src/utils/cardDisplay.js` | `src/data/cardData.js` |
 | 홈 소개 및 새 카드 시작 | `src/pages/HomePage.jsx` | `src/App.jsx` |
@@ -47,6 +48,7 @@
 | 이미지 조건부 표시 | `src/components/ImageBlock.jsx` | `MainQuestionCard.jsx`, `styles.css` |
 | 결과별 답장 설정 | `src/components/ToggleSwitch.jsx` | `CreateCardPage.jsx`, 결과 페이지 |
 | 답장 입력·검증 | `src/components/ReplyInput.jsx` | `AcceptResultPage.jsx`, `RejectResultPage.jsx` |
+| 결과 답변 초기화 | `AcceptResultPage.jsx`, `RejectResultPage.jsx` | `ReplyInput.jsx`, `src/styles.css` |
 | 제출 답장 표시 | `src/components/ReplyCard.jsx` | 결과 페이지 |
 | 모바일 프레임 | `src/components/CardFrame.jsx` | `src/styles.css` |
 | 반응형·색상·focus | `src/styles.css` | 관련 JSX 클래스와 aria 속성 |
@@ -87,10 +89,11 @@
 - 결과 원본 문구가 비면 해당 버튼의 최종 표시 문구를 사용한다.
 - `mainText` 필수 검증은 최종 보여주기에서만 수행한다.
 - 답장 토글과 답장 데이터는 수락·거절별로 독립적이다.
+- 답변 초기화는 현재 결과의 `ReplyText`와 `ReplySubmitted`만 초기화한다.
 - 이미지가 없으면 이미지 요소와 빈 placeholder를 렌더링하지 않는다.
 - 이미지는 `object-fit: contain`을 유지한다.
 - ShowCardPage에는 응답에 필요한 카드와 버튼 외 불필요한 UI를 넣지 않는다.
-- 상태를 서버나 브라우저 저장소에 영속화하지 않는다.
+- 원본 `cardData`는 `gunnam.cardData.v1` 키로 localStorage에 저장하며 서버에는 영속화하지 않는다.
 - 모든 사용자 노출 한글 파일은 UTF-8로 저장한다.
 
 ## 현재 상태

@@ -32,6 +32,7 @@ src/
     ShowCardPage.jsx
   utils/
     cardDisplay.js
+    cardStorage.js
   App.jsx
   main.jsx
   styles.css
@@ -60,7 +61,9 @@ export const initialCardData = {
 
 - `App`이 `cardData`를 소유한다.
 - 부분 업데이트는 기존 객체에 변경 필드를 병합한다.
-- 홈에서 새 카드 시작 시 전체 초기 상태로 재설정한다.
+- 앱 시작 시 `cardStorage.js`가 localStorage 저장본을 초기 상태와 병합해 복구한다.
+- `cardData`가 변경되면 문구, 이미지 data URL, 답장 설정과 제출 상태를 자동 저장한다.
+- 홈에서 작성 화면으로 다시 진입할 때 React 상태와 로컬 저장 데이터를 유지한다.
 - 수락과 거절의 이미지, 결과 문구, 답장 설정과 제출 상태를 섞지 않는다.
 - 답장 제출 시 trim된 텍스트와 submitted 상태를 함께 갱신한다.
 

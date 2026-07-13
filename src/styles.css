@@ -610,6 +610,33 @@ h1, h2, p {
   background: var(--color-reject-strong);
 }
 
+.reply-reset-button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: #fff;
+  font-size: .68rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.accept-context .reply-reset-button {
+  color: var(--color-accept-strong);
+}
+
+.reject-context .reply-reset-button {
+  color: var(--color-reject-strong);
+}
+
 @media (width <= 420px) {
   .app-shell {
     align-items: stretch;
@@ -628,6 +655,11 @@ h1, h2, p {
   .screen-back-button {
     top: 20px;
     left: 20px;
+  }
+
+  .reply-reset-button {
+    top: 16px;
+    right: 20px;
   }
 
   .step-tabs {

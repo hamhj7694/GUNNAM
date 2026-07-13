@@ -15,6 +15,13 @@ export default function RejectResultPage({ cardData, display, setCardData }) {
     });
   }
 
+  function resetReply() {
+    setCardData({
+      rejectReplyText: "",
+      rejectReplySubmitted: false
+    });
+  }
+
   return (
     <CardFrame className="result-page reject-result reject-context">
       <button
@@ -24,6 +31,16 @@ export default function RejectResultPage({ cardData, display, setCardData }) {
         onClick={() => navigate("/show")}
       >
         <span aria-hidden="true">←</span>
+      </button>
+      <button
+        aria-label="거절 답변 초기화"
+        className="reply-reset-button"
+        type="button"
+        onClick={resetReply}
+      >
+        답변
+        <br />
+        초기화
       </button>
       <div className="result-preview">
         <ImageBlock image={cardData.rejectImage} alt="거절 결과" />

@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 import CardFrame from "../components/CardFrame.jsx";
 import logoSymbol from "../assets/logo-symbol.svg";
 
-export default function HomePage({ resetCardData }) {
+export default function HomePage() {
   const navigate = useNavigate();
 
   function startCard() {
-    resetCardData();
     navigate("/create");
   }
 
