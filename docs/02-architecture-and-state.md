@@ -28,10 +28,13 @@ src/
     AcceptResultPage.jsx
     CreateCardPage.jsx
     HomePage.jsx
+    HistoryPage.jsx
     RejectResultPage.jsx
     ShowCardPage.jsx
   utils/
     cardDisplay.js
+    cardStorage.js
+    replyHistoryStorage.js
   App.jsx
   main.jsx
   styles.css
@@ -50,19 +53,26 @@ export const initialCardData = {
   acceptReplyEnabled: true,
   acceptReplyText: "",
   acceptReplySubmitted: false,
+  acceptReplyHistoryId: null,
   rejectImage: null,
   rejectResultText: "",
   rejectReplyEnabled: true,
   rejectReplyText: "",
-  rejectReplySubmitted: false
+  rejectReplySubmitted: false,
+  rejectReplyHistoryId: null
 };
 ```
 
 - `App`이 `cardData`를 소유한다.
 - 부분 업데이트는 기존 객체에 변경 필드를 병합한다.
-- 홈에서 새 카드 시작 시 전체 초기 상태로 재설정한다.
+- 앱 시작 시 `cardStorage.js`가 localStorage 저장본을 초기 상태와 병합해 복구한다.
+- `cardData`가 변경되면 문구, 이미지 data URL, 답장 설정과 제출 상태를 자동 저장한다.
+- 홈의 새 카드 시작은 React 상태와 localStorage를 초기화하고, 기존 카드 시작은 현재 데이터를 유지한다.
 - 수락과 거절의 이미지, 결과 문구, 답장 설정과 제출 상태를 섞지 않는다.
 - 답장 제출 시 trim된 텍스트와 submitted 상태를 함께 갱신한다.
+- 답장 최초 제출은 히스토리 ID를 만들고, 수정 제출은 해당 기록을 갱신한다.
+- 답장 초기화는 현재 히스토리 연결을 끊되 이미 저장된 기록은 보존한다.
+- 받은 답변은 `gunnam.replyHistory.v1` 키로 카드 데이터와 분리 저장한다.
 
 ## 파생 표시값
 
@@ -83,6 +93,7 @@ finalRejectMessage = rejectResultText.trim() || displayRejectButtonText;
 | --- | --- | --- |
 | `/` | `HomePage` | 새 카드 시작 → `/create` |
 | `/create` | `CreateCardPage` | 최종 검증 성공 → `/show` |
+| `/history` | `HistoryPage` | 받은 답변 열람·필터·삭제 |
 | `/show` | `ShowCardPage` | 수락·거절 결과 선택 |
 | `/result/accept` | `AcceptResultPage` | 뒤로가기 → `/show` |
 | `/result/reject` | `RejectResultPage` | 뒤로가기 → `/show` |

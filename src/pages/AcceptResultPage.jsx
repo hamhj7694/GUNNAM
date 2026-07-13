@@ -5,13 +5,34 @@ import ReplyCard from "../components/ReplyCard.jsx";
 import ReplyInput from "../components/ReplyInput.jsx";
 import ResultMessage from "../components/ResultMessage.jsx";
 
-export default function AcceptResultPage({ cardData, display, setCardData }) {
+export default function AcceptResultPage({
+  cardData,
+  display,
+  setCardData,
+  recordReply
+}) {
   const navigate = useNavigate();
 
   function submitReply(text) {
+    const historyId = recordReply({
+      historyId: cardData.acceptReplyHistoryId,
+      responseType: "accept",
+      replyText: text,
+      resultText: display.finalAcceptMessage
+    });
+
     setCardData({
       acceptReplyText: text,
-      acceptReplySubmitted: true
+      acceptReplySubmitted: true,
+      acceptReplyHistoryId: historyId
+    });
+  }
+
+  function resetReply() {
+    setCardData({
+      acceptReplyText: "",
+      acceptReplySubmitted: false,
+      acceptReplyHistoryId: null
     });
   }
 
@@ -24,6 +45,16 @@ export default function AcceptResultPage({ cardData, display, setCardData }) {
         onClick={() => navigate("/show")}
       >
         <span aria-hidden="true">←</span>
+      </button>
+      <button
+        aria-label="수락 답변 초기화"
+        className="reply-reset-button"
+        type="button"
+        onClick={resetReply}
+      >
+        답변
+        <br />
+        초기화
       </button>
       <div className="result-preview">
         <ImageBlock image={cardData.acceptImage} alt="수락 결과" />

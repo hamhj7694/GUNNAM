@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 export default function ReplyInput({
   value = "",
@@ -9,6 +9,11 @@ export default function ReplyInput({
   const inputId = useId();
   const [text, setText] = useState(value);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setText(value);
+    setError("");
+  }, [value]);
 
   function submitReply(event) {
     event.preventDefault();
