@@ -160,7 +160,7 @@ h1, h2, p {
   background: #efede6;
 }
 
-.home-history-button {
+.home-continue-button {
   color: var(--color-primary-strong);
   background: var(--color-primary-soft);
   border: 1px solid #4f8a7838;
@@ -560,6 +560,10 @@ h1, h2, p {
 
 .show-page .question-card {
   min-height: 320px;
+}
+
+.show-page .question-card p {
+  font-size: clamp(1.15rem, 5vw, 1.65rem);
 }
 
 .result-page {

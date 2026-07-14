@@ -32,6 +32,13 @@ export default function HomePage({ resetCardData }) {
       </div>
       <div className="home-actions">
         <button
+          className="button home-continue-button"
+          type="button"
+          onClick={continueCard}
+        >
+          카드 이어서 만들기
+        </button>
+        <button
           className="button button-accept"
           type="button"
           onClick={createNewCard}
@@ -41,18 +48,11 @@ export default function HomePage({ resetCardData }) {
         <button
           className="button secondary-button"
           type="button"
-          onClick={continueCard}
-        >
-          카드 이어서 만들기
-        </button>
-        <button
-          className="button home-history-button"
-          type="button"
           onClick={openHistory}
         >
           답변 카드 히스토리
         </button>
-        <p className="home-note">로그인 없이 바로 사용할 수 있어요.</p>
+        {/* <p className="home-note">로그인 없이 바로 사용할 수 있어요.</p> */}
       </div>
     </CardFrame>
   );
