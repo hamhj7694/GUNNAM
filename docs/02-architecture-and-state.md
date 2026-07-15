@@ -22,11 +22,15 @@ src/
     ReplyInput.jsx
     ResultMessage.jsx
     ToggleSwitch.jsx
+    DeliveryModeCard.jsx
+  config/
+    featureFlags.js
   data/
     cardData.js
   pages/
     AcceptResultPage.jsx
     CreateCardPage.jsx
+    DeliveryModePage.jsx
     HomePage.jsx
     HistoryPage.jsx
     RejectResultPage.jsx
@@ -91,7 +95,8 @@ finalRejectMessage = rejectResultText.trim() || displayRejectButtonText;
 
 | 경로 | 페이지 | 이동 책임 |
 | --- | --- | --- |
-| `/` | `HomePage` | 새 카드 시작 → `/create` |
+| `/` | `HomePage` | 새 카드 시작 → `/create/mode`, 이어 만들기 → `/create` |
+| `/create/mode` | `DeliveryModePage` | 직접 건넴 → `/create`, 온라인 방식은 기능 플래그 아래 준비 중 표시 |
 | `/create` | `CreateCardPage` | 최종 검증 성공 → `/show` |
 | `/history` | `HistoryPage` | 받은 답변 열람·필터·삭제 |
 | `/show` | `ShowCardPage` | 수락·거절 결과 선택 |
@@ -112,5 +117,6 @@ finalRejectMessage = rejectResultText.trim() || displayRejectButtonText;
 | `ReplyInput` | 로컬 입력, 공백 검증, preview 비활성 모드 |
 | `ReplyCard` | 제출된 비어 있지 않은 답장 표시 |
 | `ToggleSwitch` | boolean 답장 설정 변경 |
+| `DeliveryModeCard` | 건네는 방식 설명과 선택·준비 중 상태 표시 |
 
 페이지는 흐름과 상태 연결을 담당하고, 재사용 가능한 렌더링과 입력 동작은 컴포넌트로 분리한다.

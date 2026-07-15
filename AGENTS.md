@@ -13,7 +13,13 @@
 | UI, 문구, 반응형, 접근성 | `docs/03-ui-and-content-rules.md` |
 | 테스트와 완료 정의 | `docs/04-testing-and-done.md` |
 | 단계별 개발 계획 | `docs/05-development-plan.md` |
+| 온라인 확장 제안과 미확정 설계 | `docs/06-online-expansion-rfc.md` |
+| 온라인 단계별 구현·품질 게이트 | `docs/07-online-implementation-plan.md` |
+| 온라인 API·데이터·권한 설계 | `docs/08-online-architecture.md` |
+| 역할별 에이전트 운영 체계 | `agents/README.md`, `agents/00-shared-protocol.md`, `agents/ORCHESTRATION.md` |
 | 현재 작업 상태 | `TODO.md` |
+
+역할별 작업이 필요한 경우 `agents/`에서 해당 역할 문서를 읽는다. 온라인 RFC는 초안이므로 사용자 승인과 PRD 반영 전에는 에이전트가 임의로 구현하지 않는다.
 
 ## 작업 절차
 
@@ -40,6 +46,7 @@
 | 초기 필드 추가·삭제 | `src/data/cardData.js` | `src/App.jsx`, 사용 페이지 |
 | 버튼·결과 fallback | `src/utils/cardDisplay.js` | `src/data/cardData.js` |
 | 홈 소개 및 새 카드 시작 | `src/pages/HomePage.jsx` | `src/App.jsx` |
+| 건네는 방식 선택·기능 플래그 | `src/pages/DeliveryModePage.jsx` | `src/components/DeliveryModeCard.jsx`, `src/config/featureFlags.js` |
 | 받은 답변 목록·필터·삭제 | `src/pages/HistoryPage.jsx` | `replyHistoryStorage.js`, `src/styles.css` |
 | 3단계 작성 흐름 | `src/pages/CreateCardPage.jsx` | `src/styles.css` |
 | 메인 문구·이미지 편집 | `src/pages/CreateCardPage.jsx` | `MainQuestionCard.jsx`, `ImageUploader.jsx` |
@@ -54,11 +61,14 @@
 | 제출 답장 표시 | `src/components/ReplyCard.jsx` | 결과 페이지 |
 | 모바일 프레임 | `src/components/CardFrame.jsx` | `src/styles.css` |
 | 반응형·색상·focus | `src/styles.css` | 관련 JSX 클래스와 aria 속성 |
+| 에이전트 역할·인계·품질 게이트 | `agents/*.md` | `AGENTS.md`, `TODO.md` |
+| 온라인 DB 최소 스키마 | `server/sql/gunnam_minimum_schema.sql` | `docs/08-online-architecture.md`, `agents/04-backend-engineer.md` |
 
 ## 라우팅 지도
 
 ```text
 /                 HomePage
+/create/mode      DeliveryModePage
 /create           CreateCardPage
 /history          HistoryPage
 /show             ShowCardPage

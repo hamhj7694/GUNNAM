@@ -7,7 +7,7 @@ export default function HomePage({ resetCardData }) {
 
   function createNewCard() {
     resetCardData();
-    navigate("/create");
+    navigate("/create/mode");
   }
 
   function continueCard() {

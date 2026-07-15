@@ -14,6 +14,7 @@ import {
 } from "./utils/replyHistoryStorage.js";
 import AcceptResultPage from "./pages/AcceptResultPage.jsx";
 import CreateCardPage from "./pages/CreateCardPage.jsx";
+import DeliveryModePage from "./pages/DeliveryModePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import RejectResultPage from "./pages/RejectResultPage.jsx";
@@ -94,6 +95,7 @@ export default function App() {
     <BrowserRouter basename="/gunnam">
       <Routes>
         <Route path="/" element={<HomePage {...pageProps} />} />
+        <Route path="/create/mode" element={<DeliveryModePage />} />
         <Route path="/create" element={<CreateCardPage {...pageProps} />} />
         <Route path="/history" element={<HistoryPage {...pageProps} />} />
         <Route path="/show" element={<ShowCardPage {...pageProps} />} />
