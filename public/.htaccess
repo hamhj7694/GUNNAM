@@ -1,0 +1,17 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /gunnam/
+
+  # PHP API 요청은 SPA fallback으로 보내지 않는다.
+  RewriteRule ^api/ - [L]
+
+  # 실제 파일과 디렉터리는 그대로 제공한다.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # React Router의 공유·관리 deep link를 index.html로 연결한다.
+  RewriteRule ^ index.html [L]
+</IfModule>
+

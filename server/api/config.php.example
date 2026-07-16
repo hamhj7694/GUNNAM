@@ -1,0 +1,21 @@
+<?php
+declare(strict_types=1);
+
+// Copy this file to config.php on the server. Never commit config.php.
+return [
+    'db' => [
+        'dsn' => 'mysql:host=localhost;dbname=YOUR_DB_NAME;charset=utf8mb4',
+        'user' => 'YOUR_DB_USER',
+        'password' => 'YOUR_DB_PASSWORD',
+    ],
+    'app_base_url' => 'https://testham.dothome.co.kr/gunnam',
+    'hmac_secret' => 'REPLACE_WITH_AT_LEAST_64_RANDOM_HEX_CHARACTERS',
+    // Dothome-compatible writable paths. The API .htaccess blocks runtime access.
+    'session_save_path' => __DIR__ . '/runtime/sessions',
+    'rate_limit_path' => __DIR__ . '/runtime/rate-limits',
+    // Use the exact production origin. Do not use "*" in production.
+    'allowed_origins' => [
+        'http://localhost:5173',
+        'https://testham.dothome.co.kr',
+    ],
+];

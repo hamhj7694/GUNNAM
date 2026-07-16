@@ -16,6 +16,8 @@
 | 온라인 확장 제안과 미확정 설계 | `docs/06-online-expansion-rfc.md` |
 | 온라인 단계별 구현·품질 게이트 | `docs/07-online-implementation-plan.md` |
 | 온라인 API·데이터·권한 설계 | `docs/08-online-architecture.md` |
+| P2 링크 카드 API 계약 | `docs/09-online-api-contract.md` |
+| P3 답변 공개 범위 계약 | `docs/10-response-visibility-contract.md` |
 | 역할별 에이전트 운영 체계 | `agents/README.md`, `agents/00-shared-protocol.md`, `agents/ORCHESTRATION.md` |
 | 현재 작업 상태 | `TODO.md` |
 
@@ -43,6 +45,7 @@
 | 전역 카드 상태와 초기화 | `src/App.jsx` | `src/data/cardData.js` |
 | 카드 로컬 저장·복구 | `src/utils/cardStorage.js` | `src/App.jsx`, `src/data/cardData.js` |
 | 받은 답변 히스토리 저장 | `src/utils/replyHistoryStorage.js` | `src/App.jsx`, 결과 페이지 |
+| 내가 만든 링크 카드 저장 | `src/utils/linkCardHistoryStorage.js` | `src/App.jsx`, `LinkCardCreatePage.jsx`, `HistoryPage.jsx` |
 | 초기 필드 추가·삭제 | `src/data/cardData.js` | `src/App.jsx`, 사용 페이지 |
 | 버튼·결과 fallback | `src/utils/cardDisplay.js` | `src/data/cardData.js` |
 | 홈 소개 및 새 카드 시작 | `src/pages/HomePage.jsx` | `src/App.jsx` |
@@ -63,6 +66,11 @@
 | 반응형·색상·focus | `src/styles.css` | 관련 JSX 클래스와 aria 속성 |
 | 에이전트 역할·인계·품질 게이트 | `agents/*.md` | `AGENTS.md`, `TODO.md` |
 | 온라인 DB 최소 스키마 | `server/sql/gunnam_minimum_schema.sql` | `docs/08-online-architecture.md`, `agents/04-backend-engineer.md` |
+| 온라인 링크 카드 API | `server/api/index.php` | `server/api/bootstrap.php`, `server/api/README.md`, `docs/09-online-api-contract.md` |
+| 답변 공개 범위·공개 projection | `server/api/index.php` | `docs/10-response-visibility-contract.md`, `SharedCardPage.jsx`, `OnlineInboxPage.jsx` |
+| 온라인 링크 카드 프론트 | `src/pages/LinkCardCreatePage.jsx` | `src/api/onlineCardsApi.js`, `SharedCardPage.jsx`, `OnlineInboxPage.jsx` |
+| 관리 세션·온라인 내비게이션 | `src/utils/managementSession.js` | `src/components/OnlinePageNav.jsx`, `OnlineInboxPage.jsx`, `server/api/bootstrap.php` |
+| 하위 경로 SPA deep link | `public/.htaccess` | `vite.config.js`, `src/App.jsx` |
 
 ## 라우팅 지도
 
@@ -70,6 +78,9 @@
 /                 HomePage
 /create/mode      DeliveryModePage
 /create           CreateCardPage
+/create/link      LinkCardCreatePage
+/c/:shareToken    SharedCardPage
+/manage           OnlineInboxPage
 /history          HistoryPage
 /show             ShowCardPage
 /result/accept    AcceptResultPage
@@ -112,6 +123,8 @@
 - ShowCardPage에는 응답에 필요한 카드와 버튼 외 불필요한 UI를 넣지 않는다.
 - 원본 `cardData`는 `gunnam.cardData.v1` 키로 localStorage에 저장하며 서버에는 영속화하지 않는다.
 - 홈의 새 카드는 로컬 데이터를 초기화하고, 기존 카드는 저장 데이터를 유지한다.
+- 생성한 링크 카드의 공유·관리 URL은 사용자 요청에 따라 `gunnam.linkCardHistory.v1`에 최대 50개까지 저장한다. 관리 URL은 작성자 권한이므로 히스토리에 보안 안내와 로컬 기록 삭제를 제공한다.
+- `owner_only`는 공개 결과에서 답변 존재도 노출하지 않고, `counts_only`는 익명 집계만, `all_responses`는 `public_consent=1`인 답변의 허용 필드만 반환한다.
 - 모든 사용자 노출 한글 파일은 UTF-8로 저장한다.
 
 ## 현재 상태

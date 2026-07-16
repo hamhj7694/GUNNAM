@@ -46,9 +46,11 @@ server/
   tests/contract/
 src/
   api/
-  config/features.js
+  config/featureFlags.js
   features/online/
   fixtures/
+public/
+  .htaccess
 ```
 
 현재 SPA를 즉시 monorepo의 `apps/web`으로 이동하지 않는다. 서버 런타임과 배포 방식이 확정된 뒤 필요성을 다시 판단한다.

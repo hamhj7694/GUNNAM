@@ -12,6 +12,11 @@ import {
   loadReplyHistory,
   saveReplyHistory
 } from "./utils/replyHistoryStorage.js";
+import {
+  createLinkCardHistoryItem,
+  loadLinkCardHistory,
+  saveLinkCardHistory
+} from "./utils/linkCardHistoryStorage.js";
 import AcceptResultPage from "./pages/AcceptResultPage.jsx";
 import CreateCardPage from "./pages/CreateCardPage.jsx";
 import DeliveryModePage from "./pages/DeliveryModePage.jsx";
@@ -19,10 +24,15 @@ import HomePage from "./pages/HomePage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import RejectResultPage from "./pages/RejectResultPage.jsx";
 import ShowCardPage from "./pages/ShowCardPage.jsx";
+import LinkCardCreatePage from "./pages/LinkCardCreatePage.jsx";
+import LinkCardCreatedPage from "./pages/LinkCardCreatedPage.jsx";
+import SharedCardPage from "./pages/SharedCardPage.jsx";
+import OnlineInboxPage from "./pages/OnlineInboxPage.jsx";
 
 export default function App() {
   const [cardData, setCardData] = useState(loadCardData);
   const [replyHistory, setReplyHistory] = useState(loadReplyHistory);
+  const [linkCardHistory, setLinkCardHistory] = useState(loadLinkCardHistory);
   const display = useMemo(() => getCardDisplay(cardData), [cardData]);
 
   useEffect(() => {
@@ -32,6 +42,10 @@ export default function App() {
   useEffect(() => {
     saveReplyHistory(replyHistory);
   }, [replyHistory]);
+
+  useEffect(() => {
+    saveLinkCardHistory(linkCardHistory);
+  }, [linkCardHistory]);
 
   function updateCardData(nextValue) {
     setCardData((current) => ({
@@ -81,14 +95,29 @@ export default function App() {
     setReplyHistory((current) => current.filter((item) => item.id !== id));
   }
 
+  function recordCreatedLinkCard(result) {
+    const nextItem = createLinkCardHistoryItem(result);
+    setLinkCardHistory((current) => [
+      nextItem,
+      ...current.filter((item) => item.id !== nextItem.id)
+    ].slice(0, 50));
+  }
+
+  function deleteLinkCardHistory(id) {
+    setLinkCardHistory((current) => current.filter((item) => item.id !== id));
+  }
+
   const pageProps = {
     cardData,
     display,
     replyHistory,
+    linkCardHistory,
     setCardData: updateCardData,
     resetCardData,
     recordReply,
-    deleteReplyHistory
+    deleteReplyHistory,
+    recordCreatedLinkCard,
+    deleteLinkCardHistory
   };
 
   return (
@@ -97,6 +126,10 @@ export default function App() {
         <Route path="/" element={<HomePage {...pageProps} />} />
         <Route path="/create/mode" element={<DeliveryModePage />} />
         <Route path="/create" element={<CreateCardPage {...pageProps} />} />
+        <Route path="/create/link" element={<LinkCardCreatePage {...pageProps} />} />
+        <Route path="/create/link/complete" element={<LinkCardCreatedPage />} />
+        <Route path="/c/:shareToken" element={<SharedCardPage />} />
+        <Route path="/manage" element={<OnlineInboxPage />} />
         <Route path="/history" element={<HistoryPage {...pageProps} />} />
         <Route path="/show" element={<ShowCardPage {...pageProps} />} />
         <Route
